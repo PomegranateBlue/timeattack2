@@ -38,6 +38,21 @@ function App() {
     setMedals([...medals, newMedal]);
     // resetForm();
   };
+
+  const removeMedal = (id) => {
+    setMedals(medals.filter((item) => item.id !== id));
+  };
+
+  const updateMedal = (country) => {
+    const editMedal = {
+      goldMedal: inputData.goldMedal,
+      silverMedal: inputData.silverMedal,
+      copperMedal: inputData.copperMedal,
+    };
+    if (medals.filter((item) => item.country === country)) {
+      setMedals([...medals, editMedal]);
+    }
+  };
   const handleInput = (e) => {
     const { name, value } = e.target;
     setInputData((prev) => ({
@@ -80,7 +95,9 @@ function App() {
             onChange={handleInput}
           />
           <button type="submit">추가</button>
-          <button type="button">수정</button>
+          <button type="button" onClick={updateMedal}>
+            수정
+          </button>
         </form>
       </div>
       <div className="list-container">
@@ -100,6 +117,7 @@ function App() {
                 <td>{item.goldMedal}</td>
                 <td>{item.silverMedal}</td>
                 <td>{item.copperMedal}</td>
+                <button onClick={() => removeMedal(item.id)}>삭제</button>
               </tr>
             ))}
           </tbody>

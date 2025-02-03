@@ -35,10 +35,17 @@ function App() {
       silverMedal: inputData.silverMedal,
       copperMedal: inputData.copperMedal,
     };
-    setMedals([...medals], newMedal);
+    setMedals([...medals, newMedal]);
     // resetForm();
   };
-  console.log(inputData);
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setInputData((prev) => ({
+      ...prev,
+      [name]: name === "country" ? value : +value,
+    }));
+  };
+
   return (
     <div>
       <h1>올림픽 메달 집계</h1>
@@ -47,26 +54,30 @@ function App() {
           <label>국가명</label>
           <input
             type="text"
+            name="country"
             value={inputData.country}
-            onChange={(e) => setInputData(e.target.value)}
+            onChange={handleInput}
           />
           <label>금메달</label>
           <input
             type="number"
+            name="goldMedal"
             value={inputData.goldMedal}
-            onChange={(e) => setInputData(e.target.value)}
+            onChange={handleInput}
           />
           <label>은메달</label>
           <input
             type="number"
+            name="silverMedal"
             value={inputData.silverMedal}
-            onChange={(e) => setInputData(e.target.value)}
+            onChange={handleInput}
           />
           <label>동메달</label>
           <input
             type="number"
+            name="copperMedal"
             value={inputData.copperMedal}
-            onChange={(e) => setInputData(e.target.value)}
+            onChange={handleInput}
           />
           <button type="submit">추가</button>
           <button type="button">수정</button>
